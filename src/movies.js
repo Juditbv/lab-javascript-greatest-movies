@@ -33,26 +33,39 @@ function scoresAverage(moviesArray) {
   const allScores = moviesArray.map((movie) => movie.score);
   let sumScores = 0;
   allScores.forEach((score) => (sumScores += score));
-  const avgScore = sumScores / movies.length;
+  const avgScore = sumScores / moviesArray.length;
   return avgScore.toFixed(2);
+
+  //using reduce()
+  // const scores = moviesArray.reduce((totalScores, movie) => {
+  //   return (totalScores += movie.score);
+  // }, 0);
+  // const avgScore = scores / moviesArray.length;
+  // return avgScore.toFixed(2);
 }
 
 //console.log(scoresAverage(movies));
 
 // Iteration 4: Drama movies - Get the average of Drama Movies
 function dramaMoviesScore(moviesArray) {
-  let dramaMoviesScoresSum = 0;
-  const allDramaMoviesScores = moviesArray
+  let dramaScoresSum = 0;
+  const allDramaScores = moviesArray
     .filter((movie) => movie.genre.includes("Drama"))
     .map((dramaMovie) => dramaMovie.score);
 
-  allDramaMoviesScores.forEach((score) => (dramaMoviesScoresSum += score));
-  const avgScoreDramaMovies =
-    dramaMoviesScoresSum / allDramaMoviesScores.length;
-  return avgScoreDramaMovies.toFixed(2);
+  allDramaMoviesScores.forEach((score) => (dramaScoresSum += score));
+  const avgScoreDramas = dramaScoresSum / allDramaScores.length;
+  return avgScoreDramas.toFixed(2);
+  //using reduce()
+  // const drama = moviesArray.filter((movie) => movie.genre.includes("Drama"));
+  // const scores = drama.reduce((totalScores, movie) => {
+  //   return (totalScores += movie.score);
+  // }, 0);
+  // const avgScoreDrama = scores / drama.length;
+  // return avgScoreDrama.toFixed(2);
 }
 
-//console.log(dramaMoviesScore(movies));
+console.log(dramaMoviesScore(movies));
 
 // Iteration 5: Ordering by year - Order by year, ascending (in growing order)
 function orderByYear(moviesArray) {
@@ -86,11 +99,23 @@ function orderAlphabetically(moviesArray) {
 
 // BONUS - Iteration 7: Time Format - Turn duration of the movies from hours to minutes
 function turnHoursToMinutes(moviesArray) {
-  const moviesDurationArray = moviesArray.map((movie) => movie.duration);
-  console.log(moviesDurationArray);
+  const arrayToModify = [...moviesArray];
+  const durationInMinutes = (string) => {
+    const stringWithoutLetters = string.replace(/[hmin]/g, "");
+    const hoursToMinutes = Number(stringWithoutLetters[0]) * 60;
+    const minutes = Number(stringWithoutLetters.slice(2));
+    return hoursToMinutes + minutes;
+  };
+
+  const result = arrayToModify.forEach((movie) => {
+    let duration = movie.duration;
+    duration = durationInMinutes(movie.duration);
+  });
+
+  return result;
 }
 
-log;
+console.log(turnHoursToMinutes(movies));
 
 // BONUS - Iteration 8: Best yearly score average - Best yearly score average
 function bestYearAvg(moviesArray) {}
